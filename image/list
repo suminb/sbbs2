@@ -1,0 +1,27 @@
+<?
+include "../core.php";
+
+$sql->query("SELECT * FROM sbbs_images", SQL_ALL);
+
+?>
+
+<ul>
+
+<?
+$i = 0;
+while($sql->record[$i]) {
+	$id = $sql->record[$i]['id'];
+	$key = $sql->record[$i]['key'];
+?>
+  <li>
+    <a href="./view/<?=$key?>"><?=$key?></a>
+  </li>
+<?
+	$i++;
+}
+
+?>
+
+</ul>
+
+<a href="./upload">Upload a File</a>

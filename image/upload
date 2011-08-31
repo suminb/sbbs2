@@ -1,0 +1,67 @@
+<?
+include "../core.php";
+
+/*
+$_FILES['userfile']['name']
+$_FILES['userfile']['type']
+$_FILES['userfile']['size']
+$_FILES['userfile']['tmp_name']
+$_FILES['userfile']['error']
+*/
+
+$allowedExts = array('bmp', 'jpg', 'gif', 'png');
+$uploadDir = $env[appPath]."image/archives/";
+
+function getExtension($filename) {
+
+	$fracs = explode('.', $filename);
+	$size = sizeof($fracs);
+
+	return $fracs[$size-1];
+}
+
+
+function generateKey($filename) {
+	return md5($filename.(time()*rand(1, 5)));
+}
+
+
+if($_FILES['file']['name']) {
+
+	$name = $_FILES['file']['name'];
+	$ext = getExtension($name);
+	$key = generateKey($name);
+	$type = $_FILES['file']['type'];
+	$path = $uploadDir . $key;
+
+	$query = "INSERT INTO sbbs_images (`key`, `type`, `path`, `name`)";
+	$query .= " VALUES('$key', '$type', '$path', '$name')";
+
+	if (move_uploaded_file($_FILES['file']['tmp_name'], $path)) {
+		print("<a href=list>SUCCEEDED</a>");
+	}
+	else {
+		print("FAILED TO UPLOAD A FILE");
+		return;
+	}
+
+	$sql->query($query);
+
+}
+
+?>
+
+<html>
+<head>
+<title>Upload an Image</title>
+
+</head>
+<body>
+
+<form name="upload" enctype="multipart/form-data" method="post">
+  <input type="file" name="file" size="50" />
+  <input type="submit" value="Upload" />
+</form>
+
+</body>
+</html>

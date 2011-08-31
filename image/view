@@ -1,0 +1,34 @@
+<?php
+include "../core.php";
+
+$pathInfo = $_SERVER['PATH_INFO'];
+
+if(!$pathInfo) {
+	messageBox('$key is malformed');
+}
+else {
+	$key = substr($pathInfo, 1);
+
+	if(!ereg("[0-9a-f]{32}", $key)) {
+		messageBox('$key is malformed');
+	}
+}
+
+$sql->query("SELECT * FROM sbbs_images WHERE `key`='$key' LIMIT 1", SQL_INIT);
+
+if($sql->count == 0)
+	messageBox("The key does not exist");
+
+$file = @fopen($sql->record['path'], 'r');
+
+if($file) {
+	header("Content-Type: " . $sql->record['type']);
+	print(fread($file, filesize($sql->record['path'])));
+	fclose($file);
+}
+else {
+	messageBox("FAILED TO OPEN THE FILE");
+}
+
+
+?>

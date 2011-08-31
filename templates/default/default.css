@@ -1,0 +1,52 @@
+
+a:link {
+	font-family: 굴림;
+	font-size: 10pt;
+	color: #0000CC;
+}
+a:visited {
+	font-family: 굴림;
+	font-size: 10pt;
+	color: #0000CC;
+}
+a:active {
+	font-family: 굴림;
+	font-size: 10pt;
+	color: #0000CC;
+}
+a:hover {
+	font-family: 굴림;
+	font-size: 10pt;
+	color: #CC0000;
+}
+
+body, td, th, input, textarea, select {
+	font-family: 굴림;
+	font-size: 10pt;
+	color: #000000;
+}
+
+th {
+	color: #FFFFFF;
+}
+
+.highlight1 {
+	background-color: #FFF000;
+}
+
+
+a.whitefont:link {
+	color: #FFFFFF;
+}
+a.whitefont:visited {
+	color: #FFFFFF;
+}
+a.whitefont:active {
+	color: #FFFFFF;
+}
+a.whitefont:hover {
+	color: #FFFFFF;
+}
+.whitefont {
+	color: #FFFFFF;
+}

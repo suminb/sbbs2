@@ -1,0 +1,146 @@
+#
+#
+#
+#
+
+
+CREATE TABLE sbbs_config (
+	`key` VARCHAR(255) DEFAULT NULL,
+	`value` VARCHAR(255) DEFAULT NULL,
+
+	PRIMARY KEY(`key`)
+);
+
+CREATE TABLE sbbs_posts (
+	`id` INT NOT NULL AUTO_INCREMENT,
+
+	`uid` INT NOT NULL DEFAULT 0,
+	`bid` INT NOT NULL DEFAULT 0,
+	`category` INT NOT NULL DEFAULT 0,
+
+	`dateReg` INT NOT NULL DEFAULT 0,
+	`dateMod` INT NOT NULL DEFAULT 0,
+	`dateDlt` INT NOT NULL DEFAULT 0,
+	`ip` INT NOT NULL DEFAULT 0,
+
+	`depth` INT NOT NULL DEFAULT 0,
+	`parent` INT NOT NULL DEFAULT 0,
+	`children` INT NOT NULL DEFAULT 0,
+
+	`accessed` INT NOT NULL DEFAULT 0,
+	`attributes` INT NOT NULL DEFAULT 0,
+	`extended` INT NOT NULL DEFAULT 0,
+
+	`title` VARCHAR(255) DEFAULT NULL,
+	`content` TEXT DEFAULT NULL,
+
+	PRIMARY KEY(`id`),
+	INDEX ARRANGE(`parent`,`depth`),
+	INDEX SEARCH(`title`)
+);
+
+CREATE TABLE sbbs_posts_trash (
+	`id` INT NOT NULL AUTO_INCREMENT,
+
+	`title` VARCHAR(255) DEFAULT NULL,
+	`content` TEXT DEFAULT NULL,
+
+	PRIMARY KEY(`id`),
+	INDEX SEARCH(`title`)
+);
+
+CREATE TABLE sbbs_posts_extended (
+	pid INT NOT NULL DEFAULT 0,
+
+	PRIMARY KEY(pid)
+);
+
+CREATE TABLE sbbs_comments (
+	`pid` INT NOT NULL AUTO_INCREMENT,
+
+	`uid` INT NOT NULL DEFAULT 0,
+	`bid` INT NOT NULL DEFAULT 0,
+	`dateReg` INT NOT NULL DEFAULT 0,
+	`dateMod` INT NOT NULL DEFAULT 0,
+	`dateDlt` INT NOT NULL DEFAULT 0,
+	`attributes` INT NOT NULL DEFAULT 0,
+
+	`content` VARCHAR(255) DEFAULT NULL,
+
+	PRIMARY KEY(`pid`)
+);
+
+CREATE TABLE sbbs_boards (
+	`id` INT NOT NULL AUTO_INCREMENT,
+
+	`skinName` VARCHAR(32) DEFAULT NULL,
+	`attributes` INT NOT NULL DEFAULT 0,
+
+	title VARCHAR(64) DEFAULT NULL,
+	details VARCHAR(255) DEFAULT NULL,
+
+	PRIMARY KEY(`id`)
+);
+
+
+CREATE TABLE sbbs_categories (
+	`id` INT NOT NULL AUTO_INCREMENT,
+
+	`bid` INT NOT NULL DEFAULT 0,
+	`title` VARCHAR(32),
+	`details` VARCHAR(255),
+
+	PRIMARY KEY(`id`),
+	INDEX LIST(`bid`)
+);
+
+
+CREATE TABLE sbbs_users (
+	`id` INT NOT NULL AUTO_INCREMENT,
+
+	`struid` VARCHAR(32) DEFAULT NULL,
+	`password` CHAR(40) DEFAULT NULL,
+	`name` VARCHAR(32) DEFAULT NULL,
+	`nickname` VARCHAR(32) DEFAULT NULL,
+	`email` VARCHAR(255) DEFAULT NULL,
+	`website` VARCHAR(255) DEFAULT NULL,
+	`dateReg` INT NOT NULL DEFAULT 0,
+	`dateMod` INT NOT NULL DEFAULT 0,
+	`dateDlt` INT NOT NULL DEFAULT 0,
+	`attributes` INT NOT NULL DEFAULT 0,
+	`extended` INT NOT NULL DEFAULT 0,
+
+	`details` TEXT DEFAULT NULL,
+	`signature` VARCHAR(255) DEFAULT NULL,
+
+	PRIMARY KEY(`id`),
+	INDEX SEARCH(`struid`, `name`)
+);
+
+CREATE TABLE sbbs_users_temporary (
+	`id` INT NOT NULL AUTO_INCREMENT,
+
+	`struid` VARCHAR(32) DEFAULT NULL,
+	`password` CHAR(40) DEFAULT NULL,
+	`name` VARCHAR(32) DEFAULT NULL,
+	`email` VARCHAR(255) DEFAULT NULL,
+	`website` VARCHAR(255) DEFAULT NULL,
+	`dateReg` INT NOT NULL DEFAULT 0,
+	`dateMod` INT NOT NULL DEFAULT 0,
+	`dateDlt` INT NOT NULL DEFAULT 0,
+	`attributes` INT NOT NULL DEFAULT 0,
+	`extended` INT NOT NULL DEFAULT 0,
+
+	`details` TEXT DEFAULT NULL,
+	`signature` VARCHAR(255) DEFAULT NULL,
+
+	PRIMARY KEY(`id`),
+	INDEX SEARCH(`struid`, `name`)
+);
+
+
+CREATE TABLE sbbs_users_extended (
+	uid INT NOT NULL DEFAULT 0,
+
+	PRIMARY KEY(uid)
+);
